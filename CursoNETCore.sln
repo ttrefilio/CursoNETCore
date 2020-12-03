@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projeto.Services.Api", "Projeto.Services.Api\Projeto.Services.Api.csproj", "{A64EA837-3447-4F26-B7C3-E58EAB4D440C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{A064A675-B677-417F-904C-0A778C9E230B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{499189AF-2060-4905-9BC9-653BD0F03B6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{EAC8BC65-62F5-4E81-95EE-6C5789D4FDCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - InfraStructure", "4 - InfraStructure", "{B108A477-8628-4046-950E-244EE557306C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB8E98F7-16E0-4130-912A-DD50326B96B3}"
+	ProjectSection(SolutionItems) = preProject
+		anotacoes.txt = anotacoes.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projeto.Domain", "Projeto.Domain\Projeto.Domain.csproj", "{66C4A8F2-FFB3-45A2-8A8E-59E1041BAA18}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projeto.Infra.Data", "Projeto.Infra.Data\Projeto.Infra.Data.csproj", "{747FF0CC-74C9-410D-9557-8491F0A830F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A64EA837-3447-4F26-B7C3-E58EAB4D440C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64EA837-3447-4F26-B7C3-E58EAB4D440C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64EA837-3447-4F26-B7C3-E58EAB4D440C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64EA837-3447-4F26-B7C3-E58EAB4D440C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C4A8F2-FFB3-45A2-8A8E-59E1041BAA18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C4A8F2-FFB3-45A2-8A8E-59E1041BAA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C4A8F2-FFB3-45A2-8A8E-59E1041BAA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C4A8F2-FFB3-45A2-8A8E-59E1041BAA18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747FF0CC-74C9-410D-9557-8491F0A830F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747FF0CC-74C9-410D-9557-8491F0A830F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747FF0CC-74C9-410D-9557-8491F0A830F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747FF0CC-74C9-410D-9557-8491F0A830F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A64EA837-3447-4F26-B7C3-E58EAB4D440C} = {A064A675-B677-417F-904C-0A778C9E230B}
+		{66C4A8F2-FFB3-45A2-8A8E-59E1041BAA18} = {EAC8BC65-62F5-4E81-95EE-6C5789D4FDCC}
+		{747FF0CC-74C9-410D-9557-8491F0A830F2} = {B108A477-8628-4046-950E-244EE557306C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7822FE59-AE41-4FE1-AAA0-9D14B7FCC61E}
+	EndGlobalSection
+EndGlobal
