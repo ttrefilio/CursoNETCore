@@ -21,5 +21,9 @@ namespace Projeto.Domain.Models
             Nome = nome;
             Email = email;
         }
+
+        #region Turmas
+        public List<Turma> Turmas { get; set; }
+        #endregion
     }
 }

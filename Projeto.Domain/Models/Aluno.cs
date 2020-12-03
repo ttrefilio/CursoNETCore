@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Projeto.Domain.Models
 {
@@ -23,5 +24,9 @@ namespace Projeto.Domain.Models
             Cpf = cpf;
             DataNascimento = dataNascimento;
         }
+
+        #region Turmas
+        public List<TurmaAluno> Turmas { get; set; }
+        #endregion
     }
 }
