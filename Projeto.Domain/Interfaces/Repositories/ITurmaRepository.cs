@@ -2,7 +2,7 @@
 
 namespace Projeto.Domain.Interfaces.Repositories
 {
-    interface ITurmaRepository : IBaseRepository<Turma>
+    public interface ITurmaRepository : IBaseRepository<Turma>
     {
     }
 }

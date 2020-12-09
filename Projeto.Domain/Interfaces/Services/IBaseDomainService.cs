@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Projeto.Domain.Interfaces.Repositories
+namespace Projeto.Domain.Interfaces.Services
 {
-    public interface IBaseRepository<TEntity> : IDisposable
+    public interface IBaseDomainService<TEntity> : IDisposable
         where TEntity : class
     {
         void Add(TEntity obj);
         void Update(TEntity obj);
         void Remove(TEntity obj);
-        IQueryable<TEntity> GetAll();
+        List<TEntity> GetAll();
         TEntity GetById(Guid id);
     }
 }

@@ -9,7 +9,7 @@ namespace Projeto.Services.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlunoController : ControllerBase
+    public class AlunosController : ControllerBase
     {
         [HttpPost]
         public IActionResult Post()
