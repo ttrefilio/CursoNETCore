@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Projeto.Application.Commands.Alunos;
+using Projeto.Application.Interfaces;
 
 namespace Projeto.Services.Api.Controllers
 {
@@ -11,22 +13,55 @@ namespace Projeto.Services.Api.Controllers
     [ApiController]
     public class AlunosController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult Post()
+        private readonly IAlunoApplicationService alunoApplicationService;
+
+        public AlunosController(IAlunoApplicationService alunoApplicationService)
         {
-            return Ok();
+            this.alunoApplicationService = alunoApplicationService;
+        }
+
+        [HttpPost]
+        public IActionResult Post(CreateAlunoCommand command)
+        {
+            try
+            {
+                alunoApplicationService.Add(command);
+                return Ok(new { Message = "Aluno cadastrado com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(UpdateAlunoCommand command)
         {
-            return Ok();
+            try
+            {
+                alunoApplicationService.Update(command);
+                return Ok(new { Message = "Aluno atualizado com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            return Ok();
+            try
+            {
+                var command = new DeleteAlunoCommand { Id = id };
+
+                alunoApplicationService.Remove(command);
+                return Ok(new { Message = "Aluno excluido com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpGet]
@@ -39,6 +74,6 @@ namespace Projeto.Services.Api.Controllers
         public IActionResult GetById(int id)
         {
             return Ok();
-        }
+        }        
     }
 }

@@ -42,7 +42,7 @@ namespace Projeto.Domain.Services
             return repository.GetById(id);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             repository.Dispose();
         }

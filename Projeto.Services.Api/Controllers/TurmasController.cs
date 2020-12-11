@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Projeto.Application.Commands.Turmas;
+using Projeto.Application.Interfaces;
 
 namespace Projeto.Services.Api.Controllers
 {
@@ -11,22 +13,54 @@ namespace Projeto.Services.Api.Controllers
     [ApiController]
     public class TurmasController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult Post()
+        private readonly ITurmaApplicationService turmaApplicationService;
+
+        public TurmasController(ITurmaApplicationService turmaApplicationService)
         {
-            return Ok();
+            this.turmaApplicationService = turmaApplicationService;
+        }
+
+        [HttpPost]
+        public IActionResult Post(CreateTurmaCommand command)
+        {
+            try
+            {
+                turmaApplicationService.Add(command);
+                return Ok(new { Message = "Turma cadastrada com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message); 
+            }
         }
 
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(UpdateTurmaCommand command)
         {
-            return Ok();
+            try
+            {
+                turmaApplicationService.Update(command);
+                return Ok(new { Message = "Turma atualizada com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            return Ok();
+            try
+            {
+                var command = new DeleteTurmaCommand { Id = id };
+                turmaApplicationService.Remove(command);
+                return Ok(new { Message = "Turma excluida com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpGet]

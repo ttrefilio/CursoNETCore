@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Projeto.CrossCutting.IoC;
 using Projeto.Services.Api.Configurations;
 
 namespace Projeto.Services.Api
@@ -29,6 +30,13 @@ namespace Projeto.Services.Api
 
             //Setup para configuracao do Swagger
             SwaggerSetup.AddSwaggerSetup(services);
+                        
+            EntityFrameworkSetup.AddEntityFrameworkSetup(services, Configuration);
+
+            DependencyInjection.Register(services);
+
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

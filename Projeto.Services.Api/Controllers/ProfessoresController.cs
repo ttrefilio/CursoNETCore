@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Projeto.Application.Commands.Professores;
+using Projeto.Application.Interfaces;
 
 namespace Projeto.Services.Api.Controllers
 {
@@ -11,22 +13,55 @@ namespace Projeto.Services.Api.Controllers
     [ApiController]
     public class ProfessoresController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult Post()
+        private readonly IProfessorApplicationService professorApplicationService;
+
+        public ProfessoresController(IProfessorApplicationService professorApplicationService)
         {
-            return Ok();
+            this.professorApplicationService = professorApplicationService;
+        }
+
+        [HttpPost]
+        public IActionResult Post(CreateProfessorCommand command)
+        {
+            try
+            {
+                professorApplicationService.Add(command);
+                return Ok(new { Message = "Professor cadastrado com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpPut]
-        public IActionResult Put()
+        public IActionResult Put(UpdateProfessorCommand command)
         {
-            return Ok();
+            try
+            {
+                professorApplicationService.Update(command);
+                return Ok(new { Message = "Professor atualizado com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            return Ok();
+
+            try
+            {
+                var command = new DeleteProfessorCommand { Id = id };
+                professorApplicationService.Remove(command);
+                return Ok(new { Message = "Professor excluido com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpGet]

@@ -2,7 +2,7 @@
 
 namespace Projeto.Domain.Interfaces.Services
 {
-    interface IProfessorDomainService : IBaseDomainService<Professor>
+    public interface IProfessorDomainService : IBaseDomainService<Professor>
     {
     }
 }

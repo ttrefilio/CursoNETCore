@@ -2,7 +2,7 @@
 
 namespace Projeto.Domain.Interfaces.Services
 {
-    interface ITurmaDomainService : IBaseDomainService<Turma>
+    public interface ITurmaDomainService : IBaseDomainService<Turma>
     {
     }
 }
