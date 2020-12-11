@@ -1,9 +1,6 @@
 ﻿using Projeto.Domain.Interfaces.Repositories;
 using Projeto.Domain.Interfaces.Services;
 using Projeto.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Projeto.Domain.Services
 {

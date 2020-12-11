@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Projeto.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Projeto.Infra.Data.Mappings
 {

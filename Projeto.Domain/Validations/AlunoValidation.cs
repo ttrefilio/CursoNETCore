@@ -1,9 +1,6 @@
 ﻿using FluentValidation;
 using Projeto.Domain.Models;
 using Projeto.Domain.Validations.Commons;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Projeto.Domain.Validations
 {
