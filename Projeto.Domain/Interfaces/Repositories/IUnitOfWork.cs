@@ -15,6 +15,7 @@ namespace Projeto.Domain.Interfaces.Repositories
         IProfessorRepository ProfessorRepository { get; }
         ITurmaRepository TurmaRepository { get; }
         ITurmaAlunoRepository TurmaAlunoRepository { get; }
+        IUsuarioRepository UsuarioRepository { get; }
         #endregion
 
 

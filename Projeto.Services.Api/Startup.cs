@@ -32,10 +32,10 @@ namespace Projeto.Services.Api
             SwaggerSetup.AddSwaggerSetup(services);
                         
             EntityFrameworkSetup.AddEntityFrameworkSetup(services, Configuration);
+            
+            JwtBearerSetup.AddJwtBearerSetup(services, Configuration);
 
-            DependencyInjection.Register(services);
-
-
+            DependencyInjection.Register(services);           
             
         }
 
@@ -49,7 +49,7 @@ namespace Projeto.Services.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            JwtBearerSetup.UseJwtBearerSetup(app);
 
             app.UseEndpoints(endpoints =>
             {

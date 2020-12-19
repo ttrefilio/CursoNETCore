@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Projeto.CrossCutting.Security\Projeto.CrossCutting.Security.csproj" />
     <ProjectReference Include="..\Projeto.Domain\Projeto.Domain.csproj" />
   </ItemGroup>
 

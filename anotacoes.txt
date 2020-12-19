@@ -1,5 +1,0 @@
-Microsoft.Extensions.Configuration.Json/3.1.4
-FluentValidation
-online-visual-paradigm.com
-
-Aula 2 - 2:18:35

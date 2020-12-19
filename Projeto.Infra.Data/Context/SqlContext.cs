@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projeto.Domain.Models;
 using Projeto.Infra.Data.Mappings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Projeto.Infra.Data.Context
 {
@@ -15,6 +12,7 @@ namespace Projeto.Infra.Data.Context
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Turma> Turmas { get; set; }
         public DbSet<TurmaAluno> TurmasAlunos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +20,7 @@ namespace Projeto.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ProfessorMap());
             modelBuilder.ApplyConfiguration(new TurmaMap());
             modelBuilder.ApplyConfiguration(new TurmaAlunoMap());
+            modelBuilder.ApplyConfiguration(new UsuarioMap());
 
             //Adicionar indices na tabela
             modelBuilder.Entity<Aluno>(entity =>
@@ -33,6 +32,11 @@ namespace Projeto.Infra.Data.Context
             modelBuilder.Entity<Professor>(entity =>
             {
                 entity.HasIndex(p => p.Email).IsUnique();
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasIndex(u => u.Email).IsUnique();
             });
 
             base.OnModelCreating(modelBuilder);

@@ -42,6 +42,7 @@ namespace Projeto.Infra.Data.Repositories
         public ITurmaRepository TurmaRepository => new TurmaRepository(context);
 
         public ITurmaAlunoRepository TurmaAlunoRepository => new TurmaAlunoRepository(context);
-        
+
+        public IUsuarioRepository UsuarioRepository => new UsuarioRepository(context);
     }
 }
