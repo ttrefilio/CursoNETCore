@@ -1,6 +1,8 @@
-﻿namespace Projeto.Application.Commands.Alunos
+﻿using MediatR;
+
+namespace Projeto.Application.Commands.Alunos
 {
-    public class DeleteAlunoCommand
+    public class DeleteAlunoCommand : IRequest
     {
         public string Id { get; set; }
     }

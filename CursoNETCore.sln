@@ -23,9 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - CrossCutting", "5 - Cro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projeto.CrossCutting.IoC", "Projeto.CrossCutting.IoC\Projeto.CrossCutting.IoC.csproj", "{6047969D-2034-487B-903C-BDDFBD924EA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto.Infra.Cryptography", "Projeto.Infra.Cryptography\Projeto.Infra.Cryptography.csproj", "{AE29FBD2-CB7E-492B-A085-FAC9C837AAC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projeto.Infra.Cryptography", "Projeto.Infra.Cryptography\Projeto.Infra.Cryptography.csproj", "{AE29FBD2-CB7E-492B-A085-FAC9C837AAC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto.CrossCutting.Security", "Projeto.CrossCutting.Security\Projeto.CrossCutting.Security.csproj", "{C6510B11-4191-4ADE-804B-BB974DACEC16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projeto.CrossCutting.Security", "Projeto.CrossCutting.Security\Projeto.CrossCutting.Security.csproj", "{C6510B11-4191-4ADE-804B-BB974DACEC16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto.Infra.Caching", "Projeto.Infra.Caching\Projeto.Infra.Caching.csproj", "{EC8FA4DC-7C8F-470F-925D-8A258B2B9216}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{C6510B11-4191-4ADE-804B-BB974DACEC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6510B11-4191-4ADE-804B-BB974DACEC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6510B11-4191-4ADE-804B-BB974DACEC16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8FA4DC-7C8F-470F-925D-8A258B2B9216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8FA4DC-7C8F-470F-925D-8A258B2B9216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8FA4DC-7C8F-470F-925D-8A258B2B9216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8FA4DC-7C8F-470F-925D-8A258B2B9216}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{6047969D-2034-487B-903C-BDDFBD924EA1} = {950D1D85-8FF1-4F4E-8AB7-8A7C9E56EDA9}
 		{AE29FBD2-CB7E-492B-A085-FAC9C837AAC1} = {B108A477-8628-4046-950E-244EE557306C}
 		{C6510B11-4191-4ADE-804B-BB974DACEC16} = {950D1D85-8FF1-4F4E-8AB7-8A7C9E56EDA9}
+		{EC8FA4DC-7C8F-470F-925D-8A258B2B9216} = {B108A477-8628-4046-950E-244EE557306C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7822FE59-AE41-4FE1-AAA0-9D14B7FCC61E}

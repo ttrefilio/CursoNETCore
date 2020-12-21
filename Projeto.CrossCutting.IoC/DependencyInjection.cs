@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Projeto.Application.Interfaces;
 using Projeto.Application.Services;
+using Projeto.Domain.Interfaces.Caching;
 using Projeto.Domain.Interfaces.Cryptography;
 using Projeto.Domain.Interfaces.Repositories;
 using Projeto.Domain.Interfaces.Services;
 using Projeto.Domain.Services;
+using Projeto.Infra.Caching.Persistence;
 using Projeto.Infra.Cryptography;
 using Projeto.Infra.Data.Repositories;
 
@@ -38,6 +40,12 @@ namespace Projeto.CrossCutting.IoC
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IMD5Service, MD5Service>();
+            #endregion
+
+            #region Caching
+            services.AddTransient<IAlunoCaching, AlunoCaching>();
+            services.AddTransient<IProfessorCaching, ProfessorCaching>();
+            services.AddTransient<ITurmaCaching, TurmaCaching>();
             #endregion
         }
     }

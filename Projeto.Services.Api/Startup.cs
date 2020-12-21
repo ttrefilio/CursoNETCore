@@ -35,6 +35,8 @@ namespace Projeto.Services.Api
             
             JwtBearerSetup.AddJwtBearerSetup(services, Configuration);
 
+            MongoDBSetup.AddMongoDBSetup(services, Configuration);
+
             DependencyInjection.Register(services);           
             
         }

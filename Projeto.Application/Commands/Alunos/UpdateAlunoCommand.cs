@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MediatR;
+using System;
 
 namespace Projeto.Application.Commands.Alunos
 {
-    public class UpdateAlunoCommand
+    public class UpdateAlunoCommand : IRequest
     {
         public string Id { get; set; }
         public string Nome { get; set; }

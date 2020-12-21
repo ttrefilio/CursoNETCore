@@ -1,10 +1,10 @@
-﻿using MediatR;
-using System;
+﻿using System;
 
-namespace Projeto.Application.Commands.Alunos
+namespace Projeto.Domain.DTOs
 {
-    public class CreateAlunoCommand : IRequest
+    public class AlunoDTO
     {
+        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Matricula { get; set; }
         public string Cpf { get; set; }
