@@ -3,6 +3,6 @@
 namespace Projeto.Domain.Interfaces.Caching
 {
     public interface ITurmaCaching : IBaseCaching<TurmaDTO>
-    {
+    {        
     }
 }

@@ -14,7 +14,8 @@ namespace Projeto.Application.RequestHandlers
     public class AlunoRequestHandler : 
         IRequestHandler<CreateAlunoCommand>,
         IRequestHandler<UpdateAlunoCommand>,
-        IRequestHandler<DeleteAlunoCommand>
+        IRequestHandler<DeleteAlunoCommand>,
+        IDisposable
     {
         private readonly IMediator mediator;
         private readonly IAlunoDomainService alunoDomainService;
@@ -82,11 +83,7 @@ namespace Projeto.Application.RequestHandlers
             var aluno = new Aluno
             {
                 Id = Guid.Parse(request.Id)                
-            };
-
-            var validation = new AlunoValidation().Validate(aluno);
-            if (!validation.IsValid)
-                throw new ValidationException(validation.Errors);
+            };            
 
             alunoDomainService.Remove(aluno);
 
@@ -97,6 +94,11 @@ namespace Projeto.Application.RequestHandlers
             });
 
             return Task.FromResult(new Unit());
+        }
+
+        public void Dispose()
+        {
+            alunoDomainService.Dispose();
         }
     }
 }

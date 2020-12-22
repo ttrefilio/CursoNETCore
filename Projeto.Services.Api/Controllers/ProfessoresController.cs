@@ -65,13 +65,27 @@ namespace Projeto.Services.Api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok();
+            try
+            {
+                return Ok(professorApplicationService.GetAll());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }            
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
-            return Ok();
+            try
+            {
+                return Ok(professorApplicationService.GetById(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
     }
 }

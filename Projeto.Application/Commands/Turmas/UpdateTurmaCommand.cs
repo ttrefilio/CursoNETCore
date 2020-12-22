@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MediatR;
+using System;
 
 namespace Projeto.Application.Commands.Turmas
 {
-    public class UpdateTurmaCommand
+    public class UpdateTurmaCommand : IRequest
     {
         public string Id { get; set; }
         public string Descricao { get; set; }

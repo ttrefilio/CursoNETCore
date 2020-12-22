@@ -1,70 +1,47 @@
-﻿using FluentValidation;
+﻿using MediatR;
 using Projeto.Application.Commands.Turmas;
 using Projeto.Application.Interfaces;
-using Projeto.Domain.Interfaces.Services;
-using Projeto.Domain.Models;
-using Projeto.Domain.Validations;
+using Projeto.Domain.DTOs;
+using Projeto.Domain.Interfaces.Caching;
 using System;
+using System.Collections.Generic;
 
 namespace Projeto.Application.Services
 {
     public class TurmaApplicationService : ITurmaApplicationService
     {
-        private readonly ITurmaDomainService turmaDomainService;
+        private readonly IMediator mediator;
+        private readonly ITurmaCaching turmaCaching;
 
-        public TurmaApplicationService(ITurmaDomainService turmaDomainService)
+        public TurmaApplicationService(IMediator mediator, ITurmaCaching turmaCaching)
         {
-            this.turmaDomainService = turmaDomainService;
+            this.mediator = mediator;
+            this.turmaCaching = turmaCaching;
         }
 
         public void Add(CreateTurmaCommand command)
         {
-            var turma = new Turma
-            {
-                Id = Guid.NewGuid(),
-                DataInicio = command.DataInicio,
-                Descricao = command.Descricao,
-                ProfessorId = Guid.Parse(command.ProfessorId)
-            };
-
-            var validation = new TurmaValidation().Validate(turma);
-            if (!validation.IsValid)
-                throw new ValidationException(validation.Errors);
-
-            turmaDomainService.Add(turma);
+            mediator.Send(command);
         }
 
         public void Update(UpdateTurmaCommand command)
         {
-            var turma = turmaDomainService.GetById(Guid.Parse(command.Id));
-
-            if (turma == null)
-                throw new Exception("Turma nao encontrada.");
-
-            turma.DataInicio = command.DataInicio;
-            turma.Descricao = command.Descricao;
-            turma.ProfessorId = Guid.Parse(command.ProfessorId);
-
-            var validation = new TurmaValidation().Validate(turma);
-            if (!validation.IsValid)
-                throw new ValidationException(validation.Errors);
-
-            turmaDomainService.Update(turma);
+            mediator.Send(command);
         }
 
         public void Remove(DeleteTurmaCommand command)
         {
-            var turma = turmaDomainService.GetById(Guid.Parse(command.Id));
-
-            if (turma == null)
-                throw new Exception("Turma nao encontrada.");
-
-            turmaDomainService.Remove(turma);
+            mediator.Send(command);
         }
 
-        public void Dispose()
+        public List<TurmaDTO> GetAll()
         {
-            turmaDomainService.Dispose();
+            return turmaCaching.GetAll();
+        }
+
+        public TurmaDTO GetById(string id)
+        {
+            return turmaCaching.GetById(Guid.Parse(id));
         }
     }
 }

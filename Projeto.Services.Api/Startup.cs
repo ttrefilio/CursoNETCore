@@ -35,10 +35,13 @@ namespace Projeto.Services.Api
             
             JwtBearerSetup.AddJwtBearerSetup(services, Configuration);
 
-            MongoDBSetup.AddMongoDBSetup(services, Configuration);
+            MongoDBSetup.AddMongoDBSetup(services, Configuration);            
 
-            DependencyInjection.Register(services);           
-            
+            DependencyInjection.Register(services);
+
+            //The MediatR configuration must come below the DependecyInjection.
+            MediatRSetup.AddMediatRSetup(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

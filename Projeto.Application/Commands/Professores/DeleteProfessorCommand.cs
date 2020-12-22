@@ -1,6 +1,8 @@
-﻿namespace Projeto.Application.Commands.Professores
+﻿using MediatR;
+
+namespace Projeto.Application.Commands.Professores
 {
-    public class DeleteProfessorCommand
+    public class DeleteProfessorCommand : IRequest
     {
         public string Id { get; set; }
     }
