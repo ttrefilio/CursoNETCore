@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projeto.Application.Commands.Professores;
 using Projeto.Application.Interfaces;
+using Projeto.Services.Api.Adapters;
 using System;
 
 namespace Projeto.Services.Api.Controllers
@@ -26,6 +28,10 @@ namespace Projeto.Services.Api.Controllers
                 professorApplicationService.Add(command);
                 return Ok(new { Message = "Professor cadastrado com sucesso." });
             }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -39,6 +45,10 @@ namespace Projeto.Services.Api.Controllers
             {
                 professorApplicationService.Update(command);
                 return Ok(new { Message = "Professor atualizado com sucesso." });
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
             catch (Exception e)
             {

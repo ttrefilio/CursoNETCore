@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Projeto.Application.Commands.Usuarios;
 using Projeto.Application.Interfaces;
+using Projeto.Services.Api.Adapters;
 using System;
 
 namespace Projeto.Services.Api.Controllers
@@ -24,6 +26,10 @@ namespace Projeto.Services.Api.Controllers
                 usuarioApplicationService.Add(command);
                 return Ok(new { Message = "Usuario cadastrado com sucesso." });
             }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -46,6 +52,10 @@ namespace Projeto.Services.Api.Controllers
                     });
 
                 return BadRequest(new { Message = "Usuario nao encontrado." });
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
             catch (Exception e)
             {
