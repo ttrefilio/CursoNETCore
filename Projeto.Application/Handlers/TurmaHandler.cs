@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Projeto.Application.Notifications;
 using Projeto.Domain.DTOs;
 using Projeto.Domain.Interfaces.Caching;
@@ -10,22 +11,19 @@ namespace Projeto.Application.Handlers
     public class TurmaHandler : INotificationHandler<TurmaNotification>
     {
         private readonly ITurmaCaching turmaCaching;
+        private readonly IMapper mapper;
 
-        public TurmaHandler(ITurmaCaching turmaCaching)
+        public TurmaHandler(ITurmaCaching turmaCaching, IMapper mapper)
         {
             this.turmaCaching = turmaCaching;
+            this.mapper = mapper;
         }
 
         public Task Handle(TurmaNotification notification, CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
-                var turmaDTO = new TurmaDTO
-                {
-                    Id = notification.Turma.Id,
-                    DataInicio = notification.Turma.DataInicio,
-                    Descricao = notification.Turma.Descricao
-                };
+                var turmaDTO = mapper.Map<TurmaDTO>(notification.Turma);
 
                 switch (notification.Action)
                 {

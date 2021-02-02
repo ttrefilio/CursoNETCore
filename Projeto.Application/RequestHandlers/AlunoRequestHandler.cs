@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Projeto.Application.Commands.Alunos;
 using Projeto.Application.Notifications;
@@ -19,23 +20,18 @@ namespace Projeto.Application.RequestHandlers
     {
         private readonly IMediator mediator;
         private readonly IAlunoDomainService alunoDomainService;
+        private readonly IMapper mapper;
 
-        public AlunoRequestHandler(IMediator mediator, IAlunoDomainService alunoDomainService)
+        public AlunoRequestHandler(IMediator mediator, IAlunoDomainService alunoDomainService, IMapper mapper)
         {
             this.mediator = mediator;
             this.alunoDomainService = alunoDomainService;
+            this.mapper = mapper;
         }
 
-        public Task<Unit> Handle(CreateAlunoCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateAlunoCommand command, CancellationToken cancellationToken)
         {
-            var aluno = new Aluno
-            {
-                Id = Guid.NewGuid(),
-                Nome = request.Nome,
-                Matricula = request.Matricula,
-                Cpf = request.Cpf,
-                DataNascimento = request.DataNascimento
-            };
+            var aluno = mapper.Map<Aluno>(command);            
 
             var validation = new AlunoValidation().Validate(aluno);
             if (!validation.IsValid)
@@ -43,25 +39,18 @@ namespace Projeto.Application.RequestHandlers
 
             alunoDomainService.Add(aluno);
 
-            mediator.Publish(new AlunoNotification
+            await mediator.Publish(new AlunoNotification
             {
                 Aluno = aluno,
                 Action = ActionNotification.Criar
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
-        public Task<Unit> Handle(UpdateAlunoCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateAlunoCommand command, CancellationToken cancellationToken)
         {
-            var aluno = new Aluno
-            {
-                Id = Guid.Parse(request.Id),
-                Nome = request.Nome,
-                Matricula = request.Matricula,
-                Cpf = request.Cpf,
-                DataNascimento = request.DataNascimento
-            };
+            var aluno = mapper.Map<Aluno>(command);
 
             var validation = new AlunoValidation().Validate(aluno);
             if (!validation.IsValid)
@@ -69,31 +58,28 @@ namespace Projeto.Application.RequestHandlers
 
             alunoDomainService.Update(aluno);
 
-            mediator.Publish(new AlunoNotification
+            await mediator.Publish(new AlunoNotification
             {
                 Aluno = aluno,
                 Action = ActionNotification.Atualizar
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
-        public Task<Unit> Handle(DeleteAlunoCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteAlunoCommand command, CancellationToken cancellationToken)
         {
-            var aluno = new Aluno
-            {
-                Id = Guid.Parse(request.Id)                
-            };            
+            var aluno = mapper.Map<Aluno>(command);
 
             alunoDomainService.Remove(aluno);
 
-            mediator.Publish(new AlunoNotification
+            await mediator.Publish(new AlunoNotification
             {
                 Aluno = aluno,
                 Action = ActionNotification.Excluir
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
         public void Dispose()

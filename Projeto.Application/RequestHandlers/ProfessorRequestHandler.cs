@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Projeto.Application.Commands.Professores;
 using Projeto.Application.Notifications;
@@ -19,21 +20,18 @@ namespace Projeto.Application.RequestHandlers
     {
         private readonly IMediator mediator;
         private readonly IProfessorDomainService professorDomainService;
+        private readonly IMapper mapper;
 
-        public ProfessorRequestHandler(IMediator mediator, IProfessorDomainService professorDomainService)
+        public ProfessorRequestHandler(IMediator mediator, IProfessorDomainService professorDomainService, IMapper mapper)
         {
             this.mediator = mediator;
             this.professorDomainService = professorDomainService;
+            this.mapper = mapper;
         }
 
-        public Task<Unit> Handle(CreateProfessorCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateProfessorCommand command, CancellationToken cancellationToken)
         {
-            var professor = new Professor
-            {
-                Id = Guid.NewGuid(),
-                Nome = request.Nome,
-                Email = request.Email
-            };
+            var professor = mapper.Map<Professor>(command);
 
             var validation = new ProfessorValidation().Validate(professor);
             if (!validation.IsValid)
@@ -41,22 +39,17 @@ namespace Projeto.Application.RequestHandlers
 
             professorDomainService.Add(professor);
 
-            mediator.Publish(new ProfessorNotification { 
+            await mediator.Publish(new ProfessorNotification { 
                 Professor = professor,
                 Action = ActionNotification.Criar
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
-        public Task<Unit> Handle(UpdateProfessorCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateProfessorCommand command, CancellationToken cancellationToken)
         {
-            var professor = new Professor
-            {
-                Id = Guid.Parse(request.Id),
-                Nome = request.Nome,
-                Email = request.Email
-            };
+            var professor = mapper.Map<Professor>(command);
 
             var validation = new ProfessorValidation().Validate(professor);
             if (!validation.IsValid)
@@ -64,31 +57,28 @@ namespace Projeto.Application.RequestHandlers
 
             professorDomainService.Update(professor);
 
-            mediator.Publish(new ProfessorNotification
+            await mediator.Publish(new ProfessorNotification
             {
                 Professor = professor,
                 Action = ActionNotification.Atualizar
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
-        public Task<Unit> Handle(DeleteProfessorCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteProfessorCommand command, CancellationToken cancellationToken)
         {
-            var professor = new Professor
-            {
-                Id = Guid.NewGuid()
-            };
+            var professor = mapper.Map<Professor>(command);
 
             professorDomainService.Remove(professor);
 
-            mediator.Publish(new ProfessorNotification
+            await mediator.Publish(new ProfessorNotification
             {
                 Professor = professor,
                 Action = ActionNotification.Excluir
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
         public void Dispose()

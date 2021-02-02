@@ -5,6 +5,7 @@ using Projeto.Application.Commands.Alunos;
 using Projeto.Application.Interfaces;
 using Projeto.Services.Api.Adapters;
 using System;
+using System.Threading.Tasks;
 
 namespace Projeto.Services.Api.Controllers
 {
@@ -21,11 +22,11 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(CreateAlunoCommand command)
+        public async Task<IActionResult> Post(CreateAlunoCommand command)
         {
             try
             {
-                alunoApplicationService.Add(command);
+                await alunoApplicationService.Add(command);
                 return Ok(new { Message = "Aluno cadastrado com sucesso." });
             }
             catch (ValidationException e)
@@ -39,11 +40,11 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(UpdateAlunoCommand command)
+        public async Task<IActionResult> Put(UpdateAlunoCommand command)
         {
             try
             {
-                alunoApplicationService.Update(command);
+                await alunoApplicationService.Update(command);
                 return Ok(new { Message = "Aluno atualizado com sucesso." });
             }
             catch (ValidationException e)
@@ -57,13 +58,13 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {
                 var command = new DeleteAlunoCommand { Id = id };
 
-                alunoApplicationService.Remove(command);
+                await alunoApplicationService.Remove(command);
                 return Ok(new { Message = "Aluno excluido com sucesso." });
             }
             catch (Exception e)

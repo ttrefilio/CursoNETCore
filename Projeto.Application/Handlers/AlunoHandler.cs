@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Projeto.Application.Notifications;
 using Projeto.Domain.DTOs;
 using Projeto.Domain.Interfaces.Caching;
@@ -10,24 +11,19 @@ namespace Projeto.Application.Handlers
     public class AlunoHandler : INotificationHandler<AlunoNotification>
     {
         private readonly IAlunoCaching alunoCaching;
+        private readonly IMapper mapper;
 
-        public AlunoHandler(IAlunoCaching alunoCaching)
+        public AlunoHandler(IAlunoCaching alunoCaching, IMapper mapper)
         {
             this.alunoCaching = alunoCaching;
+            this.mapper = mapper;
         }
 
         public Task Handle(AlunoNotification notification, CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
-                var alunoDTO = new AlunoDTO
-                {
-                    Id = notification.Aluno.Id,
-                    Nome = notification.Aluno.Nome,
-                    Cpf = notification.Aluno.Cpf,
-                    Matricula = notification.Aluno.Matricula,
-                    DataNascimento = notification.Aluno.DataNascimento
-                };
+                var alunoDTO = mapper.Map<AlunoDTO>(notification.Aluno);
 
                 switch (notification.Action)
                 {

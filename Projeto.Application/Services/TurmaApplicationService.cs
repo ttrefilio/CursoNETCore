@@ -5,6 +5,7 @@ using Projeto.Domain.DTOs;
 using Projeto.Domain.Interfaces.Caching;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Projeto.Application.Services
 {
@@ -19,19 +20,19 @@ namespace Projeto.Application.Services
             this.turmaCaching = turmaCaching;
         }
 
-        public void Add(CreateTurmaCommand command)
+        public async Task Add(CreateTurmaCommand command)
         {
-            mediator.Send(command);
+            await mediator.Send(command);
         }
 
-        public void Update(UpdateTurmaCommand command)
+        public async Task Update(UpdateTurmaCommand command)
         {
-            mediator.Send(command);
+            await mediator.Send(command);
         }
 
-        public void Remove(DeleteTurmaCommand command)
+        public async Task Remove(DeleteTurmaCommand command)
         {
-            mediator.Send(command);
+            await mediator.Send(command);
         }
 
         public List<TurmaDTO> GetAll()

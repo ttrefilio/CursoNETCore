@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Projeto.Application.Commands.Turmas;
 using Projeto.Application.Notifications;
@@ -19,22 +20,18 @@ namespace Projeto.Application.RequestHandlers
     {
         private readonly IMediator mediator;
         private readonly ITurmaDomainService turmaDomainService;
+        private readonly IMapper mapper;
 
-        public TurmaRequestHandler(IMediator mediator, ITurmaDomainService turmaDomainService)
+        public TurmaRequestHandler(IMediator mediator, ITurmaDomainService turmaDomainService, IMapper mapper)
         {
             this.mediator = mediator;
             this.turmaDomainService = turmaDomainService;
+            this.mapper = mapper;
         }
 
-        public Task<Unit> Handle(CreateTurmaCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateTurmaCommand command, CancellationToken cancellationToken)
         {
-            var turma = new Turma
-            {
-                Id = Guid.NewGuid(),
-                DataInicio = request.DataInicio,
-                Descricao = request.Descricao,
-                ProfessorId = Guid.Parse(request.ProfessorId)
-            };
+            var turma = mapper.Map<Turma>(command);
 
             var validation = new TurmaValidation().Validate(turma);
             if (!validation.IsValid)
@@ -42,24 +39,18 @@ namespace Projeto.Application.RequestHandlers
 
             turmaDomainService.Add(turma);
 
-            mediator.Publish(new TurmaNotification
+            await mediator.Publish(new TurmaNotification
             {
                 Turma = turma,
                 Action = ActionNotification.Criar
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
-        public Task<Unit> Handle(UpdateTurmaCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateTurmaCommand command, CancellationToken cancellationToken)
         {
-            var turma = new Turma
-            {
-                Id = Guid.Parse(request.Id),
-                DataInicio = request.DataInicio,
-                Descricao = request.Descricao,
-                ProfessorId = Guid.Parse(request.ProfessorId)
-            };
+            var turma = mapper.Map<Turma>(command);
 
             var validation = new TurmaValidation().Validate(turma);
             if (!validation.IsValid)
@@ -67,31 +58,28 @@ namespace Projeto.Application.RequestHandlers
 
             turmaDomainService.Update(turma);
 
-            mediator.Publish(new TurmaNotification
+            await mediator.Publish(new TurmaNotification
             {
                 Turma = turma,
                 Action = ActionNotification.Atualizar
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
-        public Task<Unit> Handle(DeleteTurmaCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTurmaCommand command, CancellationToken cancellationToken)
         {
-            var turma = new Turma
-            {
-                Id = Guid.NewGuid()
-            };            
+            var turma = mapper.Map<Turma>(command);
 
             turmaDomainService.Remove(turma);
 
-            mediator.Publish(new TurmaNotification
+            await mediator.Publish(new TurmaNotification
             {
                 Turma = turma,
                 Action = ActionNotification.Excluir
             });
 
-            return Task.FromResult(new Unit());
+            return Unit.Value;
         }
 
         public void Dispose()

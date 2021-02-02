@@ -28,7 +28,6 @@ namespace Projeto.Services.Api
         {
             services.AddControllers();
 
-            //Setup para configuracao do Swagger
             SwaggerSetup.AddSwaggerSetup(services);
                         
             EntityFrameworkSetup.AddEntityFrameworkSetup(services, Configuration);
@@ -39,9 +38,11 @@ namespace Projeto.Services.Api
 
             DependencyInjection.Register(services);
 
-            //The MediatR configuration must come below the DependecyInjection.
+            // The MediatR configuration must come below the DependecyInjection.
             MediatRSetup.AddMediatRSetup(services);
+            AutoMapperSetup.AddAutoMapperSetup(services);
 
+            CorsSetup.AddCorsSetup(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +54,8 @@ namespace Projeto.Services.Api
             }
 
             app.UseRouting();
+
+            CorsSetup.UseCorsSetup(app);
 
             JwtBearerSetup.UseJwtBearerSetup(app);
 

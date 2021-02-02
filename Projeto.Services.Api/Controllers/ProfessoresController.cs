@@ -5,6 +5,7 @@ using Projeto.Application.Commands.Professores;
 using Projeto.Application.Interfaces;
 using Projeto.Services.Api.Adapters;
 using System;
+using System.Threading.Tasks;
 
 namespace Projeto.Services.Api.Controllers
 {
@@ -21,11 +22,11 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(CreateProfessorCommand command)
+        public async Task<IActionResult> Post(CreateProfessorCommand command)
         {
             try
             {
-                professorApplicationService.Add(command);
+                await professorApplicationService.Add(command);
                 return Ok(new { Message = "Professor cadastrado com sucesso." });
             }
             catch (ValidationException e)
@@ -39,11 +40,11 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(UpdateProfessorCommand command)
+        public async Task<IActionResult> Put(UpdateProfessorCommand command)
         {
             try
             {
-                professorApplicationService.Update(command);
+                await professorApplicationService.Update(command);
                 return Ok(new { Message = "Professor atualizado com sucesso." });
             }
             catch (ValidationException e)
@@ -57,13 +58,13 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
 
             try
             {
                 var command = new DeleteProfessorCommand { Id = id };
-                professorApplicationService.Remove(command);
+                await professorApplicationService.Remove(command);
                 return Ok(new { Message = "Professor excluido com sucesso." });
             }
             catch (Exception e)

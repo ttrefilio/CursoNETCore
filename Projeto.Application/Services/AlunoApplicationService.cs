@@ -5,6 +5,7 @@ using Projeto.Domain.DTOs;
 using Projeto.Domain.Interfaces.Caching;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Projeto.Application.Services
 {
@@ -19,19 +20,19 @@ namespace Projeto.Application.Services
             this.alunoCaching = alunoCaching;
         }
 
-        public void Add(CreateAlunoCommand command)
+        public async Task Add(CreateAlunoCommand command)
         {
-            mediator.Send(command);
+            await mediator.Send(command);
         }
 
-        public void Update(UpdateAlunoCommand command)
+        public async Task Update(UpdateAlunoCommand command)
         {
-            mediator.Send(command);
+            await mediator.Send(command);
         }
 
-        public void Remove(DeleteAlunoCommand command)
+        public async Task Remove(DeleteAlunoCommand command)
         {
-            mediator.Send(command);
+            await mediator.Send(command);
         }
 
         public List<AlunoDTO> GetAll()

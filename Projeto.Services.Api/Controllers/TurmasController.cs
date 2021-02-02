@@ -5,6 +5,7 @@ using Projeto.Application.Commands.Turmas;
 using Projeto.Application.Interfaces;
 using Projeto.Services.Api.Adapters;
 using System;
+using System.Threading.Tasks;
 
 namespace Projeto.Services.Api.Controllers
 {
@@ -21,11 +22,11 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(CreateTurmaCommand command)
+        public async Task<IActionResult> Post(CreateTurmaCommand command)
         {
             try
             {
-                turmaApplicationService.Add(command);
+                await turmaApplicationService.Add(command);
                 return Ok(new { Message = "Turma cadastrada com sucesso." });
             }
             catch (ValidationException e)
@@ -39,11 +40,11 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(UpdateTurmaCommand command)
+        public async Task<IActionResult> Put(UpdateTurmaCommand command)
         {
             try
             {
-                turmaApplicationService.Update(command);
+                await turmaApplicationService.Update(command);
                 return Ok(new { Message = "Turma atualizada com sucesso." });
             }
             catch (ValidationException e)
@@ -57,12 +58,12 @@ namespace Projeto.Services.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {
                 var command = new DeleteTurmaCommand { Id = id };
-                turmaApplicationService.Remove(command);
+                await turmaApplicationService.Remove(command);
                 return Ok(new { Message = "Turma excluida com sucesso." });
             }
             catch (Exception e)
